@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Antonia!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #ffedee 100%);
+            color: #444;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            position: relative;
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #e75480;
+            margin-bottom: 10px;
+            animation: fadeInDown 1.5s ease;
+        }
+        
+        h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #e75480;
+            margin-bottom: 30px;
+            animation: fadeInUp 1.5s ease;
+        }
+        
+        .card {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 2s ease;
+        }
+        
+        .card::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid #e75480;
+            border-radius: 25px;
+            opacity: 0.3;
+            z-index: -1;
+            animation: pulse 3s infinite;
+        }
+        
+        .message {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: justify;
+            margin-bottom: 30px;
+        }
+        
+        .highlight {
+            font-weight: 600;
+            color: #e75480;
+        }
+        
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            text-align: right;
+            color: #e75480;
+            margin-top: 30px;
+        }
+        
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #e75480;
+            transform: rotate(45deg);
+            opacity: 0;
+        }
+        
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #e75480;
+            border-radius: 50%;
+        }
+        
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+        
+        .heart::after {
+            top: 0;
+            left: -10px;
+        }
+        
+        .photo-frame {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            animation: float 3s infinite ease-in-out;
+        }
+        
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scale(1.02);
+                opacity: 0.2;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(0) rotate(45deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(45deg);
+                opacity: 0;
+            }
+        }
+        
+        .age-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #e75480;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(231, 84, 128, 0.3);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .final-message {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            text-align: center;
+            color: #e75480;
+            margin-top: 20px;
+            animation: fadeIn 3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .card {
+                padding: 25px;
+            }
+            
+            .message {
+                font-size: 1rem;
+            }
+            
+            .photo-frame {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Happy Birthday</h1>
+            <h2>Antonia Jihan Mariana</h2>
+            <div class="photo-frame">
+                <img src="/api/placeholder/400/400" alt="Antonia">
+            </div>
+            <div class="age-badge">21</div>
+        </header>
+        
+        <div class="card">
+            <div class="message">
+                <p>
+                    <span class="highlight">happy birthday sayangkuuy</span>
+                </p>
+                <p>
+                    Aku mau ngucapin ke orang tersepsial yang aku miliki sekarang. semoga apa yang kamu impikan, yang kamu inginkan, semua bisa tercapai di saat saat mendatang yaa. Kita perbaiki semuanya. Apa yang udah berlalu biar lah berlalu.
+                </p>
+                <p>
+                    Kamu perempuan baik, cantik, perhatian dan semuanya ada di kamu. Aku beruntung banget yang bisa sama kamu sekarang. aku belajar banyak dari kamu, <span class="highlight">Love you untuk kemarin, hari ini dan selamanya</span>.
+                </p>
+                <p>
+                    Aku minta maaf ya kalau selama ini masih banyak kurangnya, apapun itu aku coba benerin biar kita sama sama tumbuh bareng. aku cuman mau bilang, aku sangat sangat beruntung dan udah sayang banget sama kamu. Tolong jangan ninggalin yaaa. apapun masalahnya kita selesaiin bareng bareng.
+                </p>
+                <p>
+                    Eeh lupa, bocil ini udah 21 tahun udah tua wkwkwkwkkw. Sama sama pikirin dan kejar masa depan ya yangg. Apa yang kita rencanain kemarin-kemarin semoga bisa kita capai barneg bareng yaa.
+                </p>
+                <p>
+                    kamu harus jadu perempuan yang kuat, pinter, baik hati, dan bisa ngajarin anak anakku nanti🤪🤭.
+                </p>
+                <p class="final-message">
+                    Love you sayangkuuu yang paling cantik sedunia. dan terakhir Kamu adalah..... sayangku, cintaku, cantikku, pacarku, dan next adalah istriku😜😁😘
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="hearts" id="hearts"></div>
+    
+    <script>
+        // Create floating hearts animation
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            const numberOfHearts = 20;
+            
+            for (let i = 0; i < numberOfHearts; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    
+                    // Random position, size and animation duration
+                    const size = Math.random() * 20 + 10;
+                    const left = Math.random() * 100;
+                    const animationDuration = Math.random() * 5 + 5;
+                    const delay = Math.random() * 5;
+                    
+                    heart.style.width = `${size}px`;
+                    heart.style.height = `${size}px`;
+                    heart.style.left = `${left}%`;
+                    heart.style.bottom = '-20px';
+                    heart.style.opacity = '0';
+                    
+                    // Set the before and after pseudo-elements size
+                    heart.style.setProperty('--size', `${size}px`);
+                    
+                    // Animation
+                    heart.style.animation = `floatHeart ${animationDuration}s ease-in infinite ${delay}s`;
+                    
+                    // Color variation
+                    const hue = Math.random() * 20 + 340; // Pinkish hues
+                    heart.style.backgroundColor = `hsl(${hue}, 80%, 70%)`;
+                    
+                    heartsContainer.appendChild(heart);
+                    
+                    // Remove heart after animation to avoid memory issues
+                    setTimeout(() => {
+                        heart.remove();
+                    }, (animationDuration + delay) * 1000);
+                }, i * 300);
+            }
+            
+            // Create new hearts periodically
+            setTimeout(createHearts, numberOfHearts * 300);
+        }
+        
+        // Start creating hearts when page loads
+        window.addEventListener('load', createHearts);
+    </script>
+</body>
+</html>
