@@ -22,7 +22,8 @@
         }
         
         .container {
-            max-width: 800px;
+            max-width: 90%;
+            width: 800px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -265,26 +266,139 @@
             animation: fadeIn 3s ease;
         }
         
+        /* Medium devices (tablets) */
         @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+            
             h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
             
             h2 {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
+                margin-bottom: 20px;
             }
             
             .card {
-                padding: 25px;
+                padding: 30px;
             }
             
             .message {
                 font-size: 1rem;
+                line-height: 1.7;
+            }
+            
+            .photo-frame {
+                width: 180px;
+                height: 180px;
+                margin-bottom: 30px;
+            }
+            
+            .age-badge {
+                width: 55px;
+                height: 55px;
+                font-size: 1.1rem;
+            }
+            
+            .final-message {
+                font-size: 1.4rem;
+            }
+        }
+        
+        /* Small devices (landscape phones) */
+        @media (max-width: 576px) {
+            .container {
+                width: 92%;
+                padding: 10px;
+            }
+            
+            header {
+                padding: 30px 0;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+                margin-bottom: 5px;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+                margin-bottom: 20px;
+            }
+            
+            .card {
+                padding: 20px;
+                margin-bottom: 25px;
+            }
+            
+            .message {
+                font-size: 0.95rem;
+                line-height: 1.6;
+                text-align: left;
             }
             
             .photo-frame {
                 width: 150px;
                 height: 150px;
+                margin-bottom: 25px;
+                border-width: 4px;
+            }
+            
+            .age-badge {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+                top: 15px;
+                right: 15px;
+            }
+            
+            .final-message {
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* Extra small devices (phones) */
+        @media (max-width: 375px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+            }
+            
+            .card {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .message {
+                font-size: 0.9rem;
+                line-height: 1.5;
+                margin-bottom: 20px;
+            }
+            
+            .photo-frame {
+                width: 120px;
+                height: 120px;
+                margin-bottom: 20px;
+                border-width: 3px;
+            }
+            
+            .age-badge {
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+                top: 10px;
+                right: 10px;
+            }
+            
+            .final-message {
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -335,13 +449,19 @@
             const heartsContainer = document.getElementById('hearts');
             const numberOfHearts = 20;
             
-            for (let i = 0; i < numberOfHearts; i++) {
+            // Adjust number of hearts based on screen width
+            const screenWidth = window.innerWidth;
+            const actualHearts = screenWidth < 576 ? 10 : numberOfHearts;
+            
+            for (let i = 0; i < actualHearts; i++) {
                 setTimeout(() => {
                     const heart = document.createElement('div');
                     heart.classList.add('heart');
                     
                     // Random position, size and animation duration
-                    const size = Math.random() * 20 + 10;
+                    // Smaller hearts on mobile
+                    const sizeFactor = screenWidth < 576 ? 0.8 : 1;
+                    const size = (Math.random() * 15 + 10) * sizeFactor;
                     const left = Math.random() * 100;
                     const animationDuration = Math.random() * 5 + 5;
                     const delay = Math.random() * 5;
@@ -352,9 +472,6 @@
                     heart.style.bottom = '-20px';
                     heart.style.opacity = '0';
                     
-                    // Set the before and after pseudo-elements size
-                    heart.style.setProperty('--size', `${size}px`);
-                    
                     // Animation
                     heart.style.animation = `floatHeart ${animationDuration}s ease-in infinite ${delay}s`;
                     
@@ -362,21 +479,45 @@
                     const hue = Math.random() * 20 + 340; // Pinkish hues
                     heart.style.backgroundColor = `hsl(${hue}, 80%, 70%)`;
                     
+                    // Set before and after pseudo-elements
+                    const beforeAfter = document.createElement('style');
+                    beforeAfter.textContent = `
+                        #hearts .heart:nth-child(${i + 1})::before,
+                        #hearts .heart:nth-child(${i + 1})::after {
+                            width: ${size}px;
+                            height: ${size}px;
+                            background-color: hsl(${hue}, 80%, 70%);
+                        }
+                    `;
+                    document.head.appendChild(beforeAfter);
+                    
                     heartsContainer.appendChild(heart);
                     
                     // Remove heart after animation to avoid memory issues
                     setTimeout(() => {
                         heart.remove();
+                        beforeAfter.remove();
                     }, (animationDuration + delay) * 1000);
                 }, i * 300);
             }
             
             // Create new hearts periodically
-            setTimeout(createHearts, numberOfHearts * 300);
+            setTimeout(createHearts, actualHearts * 300);
         }
         
         // Start creating hearts when page loads
         window.addEventListener('load', createHearts);
+        
+        // Adjust hearts when resizing
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                const hearts = document.querySelectorAll('.heart');
+                hearts.forEach(heart => heart.remove());
+                createHearts();
+            }, 250);
+        });
     </script>
 </body>
 </html>
